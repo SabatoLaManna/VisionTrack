@@ -3,10 +3,13 @@ import mediapipe as mp
 import math
 
 # Toggles
-SHOW_NUMBERS = False  # Toggle to show/hide landmark numbers for hand
+SHOW_NUMBERS = True  # Toggle to show/hide landmark numbers for hand
 SHOW_CIRCLES = True  # Toggle to show/hide circles on hand landmarks
-SHOW_WIRES = False    # Toggle to show/hide connecting wires for hand
+SHOW_WIRES = True    # Toggle to show/hide connecting wires for hand
 SHOW_FACE = True     # Enable facial landmarks and expression detection
+
+
+
 
 # Initialize Mediapipe and OpenCV
 mp_hands = mp.solutions.hands
@@ -15,6 +18,10 @@ mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.9, min_tracking_confidence=0.9)
 mp_draw = mp.solutions.drawing_utils
 
+
+
+
+# Face expression detection functions
 def calculate_distance(coord1, coord2):
     """Calculate Euclidean distance between two 3D points."""
     return math.sqrt((coord1.x - coord2.x) ** 2 + 
@@ -83,6 +90,10 @@ def detect_neutral_expression(face_landmarks):
     if not detect_smile(face_landmarks) and not detect_frown(face_landmarks) and not detect_open_mouth(face_landmarks) and not detect_closed_eyes(face_landmarks):
         return True
     return False
+
+
+
+
 
 # Hand gesture detection functions
 def detect_five(hand_landmarks):
@@ -156,32 +167,32 @@ while cap.isOpened():
             hand_x, hand_y = int(hand_center.x * frame.shape[1]), int(hand_center.y * frame.shape[0])
 
             if detect_five(hand_landmarks):
-                cv2.putText(frame, "FIVE", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+                cv2.putText(frame, "FIVE", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 255, 255), 2)
             elif detect_fist(hand_landmarks):
-                cv2.putText(frame, "FIST", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                cv2.putText(frame, "FIST", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 255, 0), 2)
             elif detect_pinching(hand_landmarks):
-                cv2.putText(frame, "PINCHING", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                cv2.putText(frame, "PINCHING", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 0, 255), 2)
             elif detect_middle_finger(hand_landmarks):
-                cv2.putText(frame, "MIDDLE FINGER", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                cv2.putText(frame, "MIDDLE FINGER", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
 
     # Facial feature detection
     if result_faces.multi_face_landmarks:
         for face_landmarks in result_faces.multi_face_landmarks:
             # Detect facial expressions
             if detect_smile(face_landmarks):
-                cv2.putText(frame, "SMILE", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2)
+                cv2.putText(frame, "NEUTRAL", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 255, 255), 2)
 
             elif detect_frown(face_landmarks):
-                cv2.putText(frame, "FROWN", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                cv2.putText(frame, "FROWN", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 0, 255), 2)
 
             elif detect_open_mouth(face_landmarks):
-                cv2.putText(frame, "OPEN MOUTH", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                cv2.putText(frame, "OPEN MOUTH", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 0, 255), 2)
 
             elif detect_closed_eyes(face_landmarks):
-                cv2.putText(frame, "CLOSED EYES", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                cv2.putText(frame, "CLOSED EYES", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
 
             elif detect_neutral_expression(face_landmarks):
-                cv2.putText(frame, "NEUTRAL", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+                cv2.putText(frame, "OPEN MOUTH", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
 
             # Draw facial landmarks
             if SHOW_FACE:
