@@ -9,7 +9,7 @@ Hand gesture detection and labeling
 Facial expression detection (smile, frown, neutral, etc.)
 Real-time feedback with dynamic labeling
 Customizable options for displaying hand landmarks, wires, and facial features
-Built with Python, OpenCV, and Mediapipe, this project demonstrates the integration of facial and hand tracking, allowing users to engage with a system through simple gestures and expressions.
+Built with **Python, OpenCV, and Mediapipe**, this project demonstrates the integration of facial and hand tracking, allowing users to engage with a system through simple gestures and expressions.
 
 
 ## Authors
