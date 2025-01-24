@@ -1,3 +1,6 @@
+#This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+
 import cv2
 import mediapipe as mp
 import math
@@ -186,7 +189,7 @@ while cap.isOpened():
                 cv2.putText(frame, "FROWN", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 0, 255), 2)
 
             elif detect_open_mouth(face_landmarks):
-                cv2.putText(frame, "OPEN MOUTH", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (0, 0, 255), 2)
+                cv2.putText(frame, "OPEN MOUTH", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
 
             elif detect_closed_eyes(face_landmarks):
                 cv2.putText(frame, "CLOSED EYES", (50, 50), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 0, 0), 2)
