@@ -121,6 +121,25 @@ def detect_middle_finger(hand_landmarks):
     wrist = hand_landmarks.landmark[0]
     return calculate_distance(middle_finger_tip, wrist) > 0.2  # Middle finger extended if far enough
 
+def detect_peace_sign(hand_landmarks):
+    # Assuming the peace sign is detected when index and middle fingers are up and others are down
+    index_finger_up = hand_landmarks.landmark[8].y < hand_landmarks.landmark[6].y
+    middle_finger_up = hand_landmarks.landmark[12].y < hand_landmarks.landmark[10].y
+    ring_finger_down = hand_landmarks.landmark[16].y > hand_landmarks.landmark[14].y
+    pinky_finger_down = hand_landmarks.landmark[20].y > hand_landmarks.landmark[18].y
+    thumb_down = hand_landmarks.landmark[4].x < hand_landmarks.landmark[3].x
+
+    return index_finger_up and middle_finger_up and ring_finger_down and pinky_finger_down and thumb_down
+def detect_thumbs_up(hand_landmarks):
+    # Assuming the thumbs up is detected when thumb is up and other fingers are down
+    thumb_up = hand_landmarks.landmark[4].y < hand_landmarks.landmark[3].y
+    index_finger_down = hand_landmarks.landmark[8].y > hand_landmarks.landmark[6].y
+    middle_finger_down = hand_landmarks.landmark[12].y > hand_landmarks.landmark[10].y
+    ring_finger_down = hand_landmarks.landmark[16].y > hand_landmarks.landmark[14].y
+    pinky_finger_down = hand_landmarks.landmark[20].y > hand_landmarks.landmark[18].y
+
+    return thumb_up and index_finger_down and middle_finger_down and ring_finger_down and pinky_finger_down
+    
 # Open the camera
 cap = cv2.VideoCapture(0)
 
@@ -161,8 +180,12 @@ while cap.isOpened():
                 cv2.putText(frame, "FIST", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             elif detect_pinching(hand_landmarks):
                 cv2.putText(frame, "PINCHING", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+            elif detect_thumbs_up(hand_landmarks):
+              cv2.putText(frame, "THUMBS UP", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            elif detect_peace_sign(hand_landmarks):
+              cv2.putText(frame, "PEACE SIGN", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 165, 0), 2)
             elif detect_middle_finger(hand_landmarks):
-                cv2.putText(frame, "MIDDLE FINGER", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                 cv2.putText(frame, "MIDDLE FINGER", (hand_x + 10, hand_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
     # Facial feature detection
     if result_faces.multi_face_landmarks:
@@ -190,7 +213,7 @@ while cap.isOpened():
                                        mp_draw.DrawingSpec(color=(255, 0, 0), thickness=1, circle_radius=1))
 
     # Display the frame
-    cv2.imshow('Hand and Facial Expression Recognition', frame)
+    cv2.imshow('Hand and Facial Expression Recognition AA', frame)
 
     # Exit on pressing 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
