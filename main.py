@@ -6,7 +6,7 @@ import math
 SHOW_NUMBERS = True  # Toggle to show/hide landmark numbers for hand
 SHOW_CIRCLES = True  # Toggle to show/hide circles on hand landmarks
 SHOW_WIRES = True    # Toggle to show/hide connecting wires for hand
-SHOW_FACE = True     # Enable facial landmarks and expression detection
+SHOW_FACE = False     # Enable facial landmarks and expression detection
 
 # Initialize Mediapipe and OpenCV
 mp_hands = mp.solutions.hands
