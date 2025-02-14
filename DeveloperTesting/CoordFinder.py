@@ -1,3 +1,5 @@
+# For developers to find hand coordinates, press P while being on the window to print all the coordinates of the hand landmarks.
+
 import cv2
 import mediapipe as mp
 import math

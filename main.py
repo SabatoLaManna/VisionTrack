@@ -1,3 +1,7 @@
+# The main script for VisionTrack, a hand gesture and facial expression recognition system.
+# This script uses MediaPipe to detect hand gestures and facial expressions in real-time.
+# @SabatoLaManna             https://github.com/SabatoLaManna
+
 import cv2
 import mediapipe as mp
 import math

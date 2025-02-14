@@ -1,3 +1,8 @@
+
+
+#Still bugged, not publishable!!!
+#TODO: Fix the bug of the circle not following the thumb and disappearing when the hand is not visible in the frame
+
 import cv2
 import mediapipe as mp
 import math
